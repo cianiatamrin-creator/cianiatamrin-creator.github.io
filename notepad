@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notepad - CPS Test Waifu</title>
+
+  <!-- ADSTERRA SUDAH NANCEP DI SINI -->
+  <script type='text/javascript' src='//pl28174421.effectivegatecpm.com/f4/f6/ac/f4f6ac695d1fd69033ef0c1803b28aa4.js'></script>
+
+  <style>
+    body{font-family:Arial,sans-serif;margin:20px;background:#fdfdfd;}
+    textarea{width:100%;height:80vh;font-size:16px;padding:15px;}
+    .toolbar{padding:10px 0;}
+    button{padding:8px 15px;margin-right:10px;}
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button onclick="newFile()">New</button>
+    <button onclick="openFile()">Open</button>
+    <button onclick="saveFile()">Save</button>
+  </div>
+  <textarea id="notepad" placeholder="Start typing your notes here..."></textarea>
+
+  <script>
+    function newFile(){ document.getElementById('notepad').value=''; }
+    function saveFile(){
+      const text = document.getElementById('notepad').value;
+      const blob = new Blob([text], {type:'text/plain'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'notes.txt';
+      a.click();
+    }
+    function openFile(){
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.onchange = e => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = () => document.getElementById('notepad').value = reader.result;
+      }
+      input.click();
+    }
+  </script>
+</body>
+</html>
