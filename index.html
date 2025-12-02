@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPS Test Waifu</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:"Segoe UI",Arial,sans-serif;
+      background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+      background-attachment:fixed;
+      color:white;
+      min-height:100vh;
+      display:flex;flex-direction:column;align-items:center;
+      padding:15px 10px;
+    }
+    h1{
+      font-size:2.2rem;
+      margin:10px 0 5px;
+      text-shadow:0 3px 10px rgba(0,0,0,0.4);
+    }
+    .subtitle{
+      font-size:1.1rem;
+      opacity:0.9;
+      margin-bottom:12px;
+    }
+    .top-menu{
+      margin:10px 0 15px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .top-menu button{
+      padding:10px 20px;
+      font-size:15px;
+      font-weight:bold;
+      border:none;
+      border-radius:30px;
+      cursor:pointer;
+    }
+    #startAgain{background:#4ecdc4;color:white;display:none;}
+    #startAgain:hover{background:#45b7aa;}
+    #openNotepad{background:#f9ca24;color:#333;}
+    #openNotepad:hover{background:#f6b93b;}
+    .container{
+      background:rgba(255,255,255,0.15);
+      padding:20px;
+      border-radius:20px;
+      backdrop-filter:blur(12px);
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+      width:90%;
+      max-width:480px;
+    }
+    select{
+      width:100%;padding:12px;font-size:16px;
+      border-radius:12px;border:none;background:white;color:#333;
+      margin-bottom:15px;
+    }
+    #clickArea{
+      width:100%;max-width:300px;height:400px;
+      margin:15px auto;
+      border-radius:20px;overflow:hidden;
+      cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,0.5);
+      position:relative;background:#000;
+    }
+    #clickArea img{width:100%;height:100%;object-fit:cover;}
+    .clicktext{
+      position:absolute;bottom:12px;left:0;right:0;
+      background:rgba(0,0,0,0.75);padding:10px;
+      font-size:1.7rem;
+      font-weight:bold;text-align:center;
+    }
+    .stats{
+      display:flex;justify-content:space-around;margin:18px 0;
+      font-size:1.35rem;
+      gap:10px;
+    }
+    .stats div{
+      background:rgba(0,0,0,0,0.3);padding:10px 16px;
+      border-radius:12px;min-width:90px;flex:1;text-align:center;
+    }
+    #result{
+      font-size:1.5rem;
+      margin:18px 0;text-align:center;line-height:1.4;
+    }
+  </style>
+
+  <!-- ADSTERRA SOCIAL BAR + POPUNDER GACOR 2025 -->
+  <script type='text/javascript' src='//pl28174421.effectivegatecpm.com/f4/f6/ac/f4f6ac695d1fd69033ef0c1803b28aa4.js'></script>
+
+</head>
+<body>
+  <h1>CPS Test Waifu</h1>
+  <div class="subtitle">Click the waifu as fast as you can!</div>
+
+  <div class="top-menu">
+    <button id="startAgain" onclick="startAgain()">Start Again</button>
+    <button id="openNotepad" onclick="window.open('notepad.html','_blank')">
+      Open Notepad
+    </button>
+  </div>
+
+  <select id="timeSelect">
+    <option value="1">1 Second</option>
+    <option value="3">3 Seconds</option>
+    <option value="5" selected>5 Seconds</option>
+    <option value="10">10 Seconds</option>
+    <option value="20">20 Seconds</option>
+    <option value="30">30 Seconds</option>
+    <option value="60">60 Seconds</option>
+    <option value="manual">Manual</option>
+  </select>
+
+  <div id="clickArea">
+    <img src="waifu.png" alt="Waifu">
+    <div class="clicktext" id="clickText">Click to Start!</div>
+  </div>
+
+  <div class="stats">
+    <div>Clicks: <span id="clicks">0</span></div>
+    <div>Time: <span id="timer">--</span>s</div>
+    <div>CPS: <span id="cps">0.00</span></div>
+  </div>
+
+  <div id="result">Choose time → click waifu to start!</div>
+
+<script>
+  const clickArea = document.getElementById("clickArea");
+  const clickText = document.getElementById("clickText");
+  const clicksDisplay = document.getElementById("clicks");
+  const timerDisplay = document.getElementById("timer");
+  const cpsDisplay = document.getElementById("cps");
+  const resultDisplay = document.getElementById("result");
+  const startAgainBtn = document.getElementById("startAgain");
+  const timeSelect = document.getElementById("timeSelect");
+
+  let clicks = 0, seconds = 0, timerInterval = null, isRunning = false, selectedTime = 10;
+  let hasStarted = false;
+
+  clickArea.addEventListener("click", () => {
+    if (!hasStarted) { startTest(); hasStarted = true; }
+    else if (isRunning) { clicks++; clicksDisplay.textContent = clicks; updateCPS(); }
+  });
+
+  function startTest() {
+    selectedTime = timeSelect.value === "manual" ? 0 : parseInt(timeSelect.value);
+    isRunning = true; clicks = 0; seconds = 0;
+    clicksDisplay.textContent = "0"; timerDisplay.textContent = "0"; cpsDisplay.textContent = "0.00";
+    resultDisplay.textContent = "GO GO GO!!!"; clickText.textContent = "FASTER!!";
+    startAgainBtn.style.display = "inline-block";
+    timeSelect.disabled = true;
+    if (selectedTime > 0) {
+      timerInterval = setInterval(() => {
+        seconds++; timerDisplay.textContent = seconds; updateCPS();
+        if (seconds >= selectedTime) endTest();
+      }, 1000);
+    } else {
+      timerInterval = setInterval(() => { seconds++; timerDisplay.textContent = seconds; updateCPS(); }, 1000);
+    }
+  }
+
+  function updateCPS() {
+    const timeUsed = seconds > 0 ? seconds : 1;
+    cpsDisplay.textContent = (clicks / timeUsed).toFixed(2);
+  }
+
+  function endTest() {
+    clearInterval(timerInterval); isRunning = false;
+    clickText.textContent = "FINISHED!";
+    const finalCPS = (clicks / (seconds || 1)).toFixed(2);
+    resultDisplay.innerHTML = `<strong>TEST DONE!</strong><br>Clicks: ${clicks}<br>Time: ${seconds}s<br><span style="font-size:2.6rem;color:yellow">CPS: ${finalCPS}</span>`;
+  }
+
+  function startAgain() {
+    clearInterval(timerInterval); hasStarted = false; isRunning = false;
+    clicks = 0; seconds = 0;
+    clicksDisplay.textContent = "0"; timerDisplay.textContent = "--"; cpsDisplay.textContent = "0.00";
+    resultDisplay.textContent = "Choose time → click waifu to start!";
+    clickText.textContent = "Click to Start!";
+    startAgainBtn.style.display = "none";
+    timeSelect.disabled = false;
+  }
+
+  document.addEventListener("keydown", e => {
+    if (e.code === "Space" && !e.repeat && hasStarted && isRunning) {
+      e.preventDefault(); clickArea.click();
+    }
+  });
+</script>
+</body>
+</html>
